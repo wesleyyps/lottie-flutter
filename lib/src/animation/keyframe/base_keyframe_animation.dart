@@ -75,7 +75,14 @@ abstract class BaseKeyframeAnimation<K extends Object, A extends Object?> {
     }
     var progressIntoFrame = _progress - keyframe.startProgress;
     var keyframeProgress = keyframe.endProgress - keyframe.startProgress;
-    return progressIntoFrame / keyframeProgress;
+    double progress = progressIntoFrame / keyframeProgress;
+    if (progress > 1.0) {
+      progress = progress / 100;
+    }
+    if (progress < 0.0) {
+      progress = 0.0;
+    }
+    return progress;
   }
 
   /// Takes the value of {@link #getLinearCurrentKeyframeProgress()} and interpolates it with
